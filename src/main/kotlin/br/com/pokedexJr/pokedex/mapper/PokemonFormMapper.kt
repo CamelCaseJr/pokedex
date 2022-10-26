@@ -2,7 +2,9 @@ package br.com.pokedexJr.pokedex.mapper
 
 import br.com.pokedexJr.pokedex.form.PokemonForm
 import br.com.pokedexJr.pokedex.model.Pokemon
+import org.springframework.stereotype.Component
 
+@Component
 class PokemonFormMapper():Mapper<PokemonForm, Pokemon> {
     override fun map(t: PokemonForm): Pokemon {
         return Pokemon(
