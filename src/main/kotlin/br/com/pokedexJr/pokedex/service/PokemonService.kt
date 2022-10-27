@@ -5,6 +5,8 @@ import br.com.pokedexJr.pokedex.mapper.PokemonFormMapper
 import br.com.pokedexJr.pokedex.model.Pokemon
 import br.com.pokedexJr.pokedex.repository.PokemonRepository
 import org.springframework.stereotype.Service
+import java.util.Optional
+import kotlin.streams.toList
 
 @Service
 class PokemonService (
@@ -15,11 +17,17 @@ class PokemonService (
         nomePokemon: String?
     ): List<Pokemon> {
         val pokemons  = nomePokemon?.let {
-            repository.findByPokemonNome(nomePokemon) } ?: repository.findAll()
+            repository.findByPokemonNome(nomePokemon).stream().toList() } ?: repository.findAll()
         return pokemons
     }
 
     fun created(form: PokemonForm): Pokemon {
         return mapper.map(form)
+    }
+
+    fun buscarPorNome(
+        nomePokemon: String
+    ):Optional<Pokemon>{
+        return repository.findByPokemonNome(nomePokemon)
     }
 }
